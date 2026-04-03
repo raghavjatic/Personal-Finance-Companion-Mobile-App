@@ -61,6 +61,8 @@ class TransactionAdapter(
     }
 
     override fun getItemCount(): Int = transactions.size
+    val currentList: List<TransactionEntity>
+        get() = transactions
 
     fun updateTransactions(newTransactions: List<TransactionEntity>) {
         transactions = newTransactions
