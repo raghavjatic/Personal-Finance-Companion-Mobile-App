@@ -16,7 +16,7 @@
 
     <fragment
         android:id="@+id/insightsFragment"
-        android:name="com.example.zorvyn.InsightsFragment"
+        android:name="com.example.zorvyn.ui.insights.InsightsFragment"
         android:label="Insights" />
 
 </navigation>
