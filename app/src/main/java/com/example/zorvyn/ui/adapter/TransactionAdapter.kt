@@ -4,6 +4,8 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.core.content.ContextCompat
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.zorvyn.R
 import com.example.zorvyn.data.entity.TransactionEntity
@@ -12,12 +14,32 @@ import java.util.Date
 import java.util.Locale
 
 class TransactionAdapter(
-    private var transactions: List<TransactionEntity> = emptyList(),
     private val onItemClick: (TransactionEntity) -> Unit = {}
-) : RecyclerView.Adapter<TransactionAdapter.TransactionViewHolder>() {
+) : ListAdapter<TransactionEntity, TransactionAdapter.TransactionViewHolder>(DIFF_CALLBACK) {
 
-    inner class TransactionViewHolder(itemView: android.view.View) :
-        RecyclerView.ViewHolder(itemView) {
+    companion object {
+        val DIFF_CALLBACK = object : DiffUtil.ItemCallback<TransactionEntity>() {
+            override fun areItemsTheSame(
+                oldItem: TransactionEntity,
+                newItem: TransactionEntity
+            ): Boolean {
+                return oldItem.id == newItem.id
+            }
+
+            override fun areContentsTheSame(
+                oldItem: TransactionEntity,
+                newItem: TransactionEntity
+            ): Boolean {
+                return oldItem == newItem
+            }
+        }
+    }
+
+    inner class TransactionViewHolder(parent: ViewGroup) :
+        RecyclerView.ViewHolder(
+            LayoutInflater.from(parent.context)
+                .inflate(R.layout.item_transaction, parent, false)
+        ) {
 
         private val tvCategory: TextView = itemView.findViewById(R.id.tv_category)
         private val tvDate: TextView = itemView.findViewById(R.id.tv_date)
@@ -27,14 +49,11 @@ class TransactionAdapter(
 
             tvCategory.text = transaction.category
 
-            // Format date
             val dateFormat = SimpleDateFormat("MMM d, yyyy", Locale.getDefault())
             tvDate.text = dateFormat.format(Date(transaction.date))
 
-            // Format amount
             tvAmount.text = "₹${transaction.amount}"
 
-            // Set color based on type
             val color = if (transaction.type.lowercase() == "income") {
                 ContextCompat.getColor(itemView.context, android.R.color.holo_green_dark)
             } else {
@@ -43,7 +62,6 @@ class TransactionAdapter(
 
             tvAmount.setTextColor(color)
 
-            // Click listener
             itemView.setOnClickListener {
                 onItemClick(transaction)
             }
@@ -51,21 +69,10 @@ class TransactionAdapter(
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TransactionViewHolder {
-        val view = LayoutInflater.from(parent.context)
-            .inflate(R.layout.item_transaction, parent, false)
-        return TransactionViewHolder(view)
+        return TransactionViewHolder(parent)
     }
 
     override fun onBindViewHolder(holder: TransactionViewHolder, position: Int) {
-        holder.bind(transactions[position])
-    }
-
-    override fun getItemCount(): Int = transactions.size
-    val currentList: List<TransactionEntity>
-        get() = transactions
-
-    fun updateTransactions(newTransactions: List<TransactionEntity>) {
-        transactions = newTransactions
-        notifyDataSetChanged()
+        holder.bind(getItem(position))
     }
 }
