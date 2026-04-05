@@ -41,6 +41,15 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="12dp" />
 
+    <!-- Custom Category (for "Other") -->
+    <EditText
+        android:id="@+id/etCustomCategory"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Enter custom category"
+        android:visibility="gone"
+        android:layout_marginTop="8dp" />
+
     <!-- Notes -->
     <EditText
         android:id="@+id/etNotes"
