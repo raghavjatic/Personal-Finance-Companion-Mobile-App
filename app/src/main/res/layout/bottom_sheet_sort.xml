@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:padding="20dp"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Sort By"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:layout_marginBottom="16dp"/>
+
+    <RadioGroup
+        android:id="@+id/rgSort"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <RadioButton
+            android:id="@+id/rbDateDesc"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Newest First"/>
+
+        <RadioButton
+            android:id="@+id/rbDateAsc"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Oldest First"/>
+
+        <RadioButton
+            android:id="@+id/rbAmountHigh"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Amount High → Low"/>
+
+        <RadioButton
+            android:id="@+id/rbAmountLow"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Amount Low → High"/>
+
+    </RadioGroup>
+
+    <Button
+        android:id="@+id/btnApplySort"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Apply"
+        android:layout_marginTop="16dp"/>
+
+</LinearLayout>

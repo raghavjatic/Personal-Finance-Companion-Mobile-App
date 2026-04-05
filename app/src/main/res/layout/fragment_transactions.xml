@@ -1,25 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fitsSystemWindows="true"
-    android:paddingTop="0dp">
+    android:fitsSystemWindows="true">
 
-    <!-- App Title -->
-    <TextView
-        android:id="@+id/tvTitle"
+    <!-- 🔥 Top Bar -->
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Zorvyn"
-        android:textSize="35sp"
-        android:textStyle="bold"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
         android:paddingStart="16dp"
-        android:paddingEnd="16dp"
-        android:paddingBottom="8dp" />
+        android:paddingEnd="8dp"
+        android:paddingBottom="8dp">
 
-    <!-- Search Bar -->
+        <!-- Title -->
+        <TextView
+            android:id="@+id/tvTitle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Zorvyn"
+            android:textSize="35sp"
+            android:textStyle="bold" />
+
+        <!-- Filter Button -->
+        <ImageButton
+            android:id="@+id/btnFilter"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:src="@android:drawable/ic_menu_sort_by_size"
+            android:background="?attr/selectableItemBackgroundBorderless"/>
+
+        <!-- Sort Button -->
+        <ImageButton
+            android:id="@+id/btnSort"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:src="@android:drawable/ic_menu_sort_alphabetically"
+            android:background="?attr/selectableItemBackgroundBorderless"/>
+    </LinearLayout>
+
+    <!-- 🔍 Search Bar -->
     <EditText
         android:id="@+id/etSearch"
         android:layout_width="match_parent"
@@ -31,11 +56,12 @@
         android:background="@drawable/bg_search"
         android:inputType="text" />
 
-    <!-- Recycler + Empty + FAB container -->
+    <!-- 📦 Content Area -->
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+        <!-- RecyclerView -->
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerViewTransactions"
             android:layout_width="match_parent"
@@ -43,6 +69,7 @@
             android:padding="12dp"
             android:paddingBottom="80dp" />
 
+        <!-- Empty State -->
         <TextView
             android:id="@+id/tvEmptyState"
             android:layout_width="wrap_content"
@@ -51,6 +78,7 @@
             android:layout_gravity="center"
             android:visibility="gone" />
 
+        <!-- FAB -->
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/fabAddTransaction"
             android:layout_width="wrap_content"
