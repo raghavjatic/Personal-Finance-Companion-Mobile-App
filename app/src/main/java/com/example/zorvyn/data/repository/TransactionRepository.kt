@@ -37,4 +37,15 @@ class TransactionRepository(private val transactionDao: TransactionDao) {
     suspend fun deleteTransaction(transaction: TransactionEntity) {
         transactionDao.deleteTransaction(transaction)
     }
+
+    //Insights
+    fun getMonthlyExpense() = transactionDao.getMonthlyExpense()
+
+    fun getTopCategory() = transactionDao.getTopCategory()
+
+    fun getWeeklyComparison() = transactionDao.getWeeklyComparison()
+
+    fun getCategoryTotals() = transactionDao.getCategoryTotals()
+
+    fun getDailyExpenses() = transactionDao.getDailyExpenses()
 }
