@@ -26,7 +26,7 @@ class TransactionsFragment : Fragment(R.layout.fragment_transactions) {
 
     private lateinit var adapter: TransactionAdapter
     private lateinit var recyclerView: RecyclerView
-    private lateinit var emptyState: TextView
+    private lateinit var emptyStateLayout: View
     private lateinit var fab: FloatingActionButton
     private lateinit var etSearch: EditText
     private lateinit var btnFilter: ImageButton
@@ -42,7 +42,7 @@ class TransactionsFragment : Fragment(R.layout.fragment_transactions) {
         super.onViewCreated(view, savedInstanceState)
 
         recyclerView = view.findViewById(R.id.recyclerViewTransactions)
-        emptyState = view.findViewById(R.id.tvEmptyState)
+        emptyStateLayout = view.findViewById(R.id.emptyStateLayout)
         fab = view.findViewById(R.id.fabAddTransaction)
         etSearch = view.findViewById(R.id.etSearch)
         btnFilter = view.findViewById(R.id.btnFilter)
@@ -160,8 +160,13 @@ class TransactionsFragment : Fragment(R.layout.fragment_transactions) {
 
         adapter.submitList(sortedList)
 
-        emptyState.visibility =
-            if (sortedList.isEmpty()) View.VISIBLE else View.GONE
+        if (sortedList.isEmpty()) {
+            emptyStateLayout.visibility = View.VISIBLE
+            recyclerView.visibility = View.GONE
+        } else {
+            emptyStateLayout.visibility = View.GONE
+            recyclerView.visibility = View.VISIBLE
+        }
     }
 
     // =========================
