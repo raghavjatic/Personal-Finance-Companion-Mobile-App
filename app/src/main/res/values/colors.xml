@@ -28,4 +28,13 @@
     <!-- Ripple -->
     <color name="ripple">#1A1E3C72</color> <!-- subtle blue ripple -->
 
+    <!-- insghts graph color -->
+
+    <color name="graphBar">#1E88E5</color>
+    <color name="graphGrid">#E6EAF0</color>
+    <color name="graphText">#9AA0A6</color>
+
+    <color name="green">#4CAF50</color>
+    <color name="red">#F44336</color>
+
 </resources>

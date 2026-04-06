@@ -22,7 +22,6 @@ class InsightsFragment : Fragment(R.layout.fragment_insights) {
 
     private lateinit var viewModel: InsightsViewModel
 
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -30,7 +29,6 @@ class InsightsFragment : Fragment(R.layout.fragment_insights) {
 
         val format = java.text.SimpleDateFormat("MMMM yyyy", java.util.Locale.getDefault())
         val currentMonth = format.format(java.util.Date())
-
         tvMonthLabel.text = currentMonth
 
         val repository = TransactionRepository(
@@ -56,9 +54,11 @@ class InsightsFragment : Fragment(R.layout.fragment_insights) {
         // 🔹 TEXT + CHART
         // ===============================
         val tvMonthly = view.findViewById<TextView>(R.id.tvMonthlyTotal)
-        val tvWeekly = view.findViewById<TextView>(R.id.tvWeeklyComparison)
+        val tvWeeklyMain = view.findViewById<TextView>(R.id.tvWeeklyMain)
         val tvTop = view.findViewById<TextView>(R.id.tvTopCategory)
         val barChart = view.findViewById<BarChart>(R.id.barChart)
+        val tvGraphPercent = view.findViewById<TextView>(R.id.tvGraphPercent)
+        val tvGraphSub = view.findViewById<TextView>(R.id.tvGraphSub)
 
         viewModel.monthlyExpense.observe(viewLifecycleOwner) {
             tvMonthly.text = "₹${it ?: 0}"
@@ -75,37 +75,98 @@ class InsightsFragment : Fragment(R.layout.fragment_insights) {
             val thisWeek = data.thisWeek ?: 0.0
             val lastWeek = data.lastWeek ?: 0.0
 
+            // ✅ THIS WEEK CARD → ONLY ₹
+            tvWeeklyMain.text = "₹${thisWeek.toInt()}"
+            tvWeeklyMain.setTextColor(resources.getColor(R.color.black, null))
+
+            // ✅ GRAPH TEXT → % + COLOR
             if (lastWeek == 0.0) {
-                tvWeekly.text = "No previous data"
+                tvGraphPercent.text = "0%"
+                tvGraphPercent.setTextColor(resources.getColor(R.color.graphText, null))
+                tvGraphSub.text = "No previous data"
             } else {
                 val percent = ((thisWeek - lastWeek) / lastWeek) * 100
-                val arrow = if (percent >= 0) "↑" else "↓"
+                val isIncrease = percent >= 0
 
-                tvWeekly.text =
-                    "$arrow ${"%.1f".format(kotlin.math.abs(percent))}% vs last week"
+                val arrow = if (isIncrease) "↑" else "↓"
+
+                val color = if (isIncrease)
+                    resources.getColor(R.color.green, null)
+                else
+                    resources.getColor(R.color.red, null)
+
+                tvGraphPercent.text =
+                    "$arrow ${String.format("%.1f", kotlin.math.abs(percent))}%"
+
+                tvGraphPercent.setTextColor(color)
+                tvGraphSub.text = "than previous week"
+            }
+        }
+
+        // 🔥 MODERN WEEKLY GRAPH
+        viewModel.weeklyDailyExpenses.observe(viewLifecycleOwner) { dailyValues ->
+
+            val entries = dailyValues.mapIndexed { index, value ->
+                BarEntry(index.toFloat(), value)
             }
 
-            val entries = listOf(
-                BarEntry(0f, lastWeek.toFloat()),
-                BarEntry(1f, thisWeek.toFloat())
-            )
+            val dataSet = BarDataSet(entries, "").apply {
+                color = resources.getColor(R.color.graphBar, null)
+                setDrawValues(false)
+            }
 
-            val dataSet = BarDataSet(entries, "Weekly Spending")
-            barChart.data = BarData(dataSet)
+            val barData = BarData(dataSet)
+            barData.barWidth = 0.4f
 
-            barChart.xAxis.valueFormatter =
-                IndexAxisValueFormatter(listOf("Last", "This"))
-            barChart.xAxis.granularity = 1f
-            barChart.xAxis.position = XAxis.XAxisPosition.BOTTOM
+            barChart.data = barData
+
+            // ✅ X Axis (days)
+            barChart.xAxis.apply {
+                valueFormatter = IndexAxisValueFormatter(
+                    listOf("Sun","Mon","Tue","Wed","Thu","Fri","Sat")
+                )
+                position = XAxis.XAxisPosition.BOTTOM
+                granularity = 1f
+                setDrawGridLines(false)
+                setDrawAxisLine(false)
+                textColor = resources.getColor(R.color.graphText, null)
+                textSize = 10f
+            }
+
+            // ✅ Y Axis (clean + dotted)
+            barChart.axisLeft.apply {
+                setDrawAxisLine(false)
+                setDrawGridLines(true)
+                gridColor = resources.getColor(R.color.graphGrid, null)
+                enableGridDashedLine(10f, 10f, 0f) // 🔥 dotted lines
+                textColor = resources.getColor(R.color.graphText, null)
+                textSize = 10f
+
+                val maxValue = dailyValues.maxOrNull() ?: 0f
+
+                barChart.axisLeft.axisMaximum = maxValue * 1.2f  // add headroom
+                barChart.axisLeft.axisMinimum = 0f
+            }
 
             barChart.axisRight.isEnabled = false
+
+            // ✅ Clean UI
             barChart.description.isEnabled = false
+            barChart.legend.isEnabled = false
+            barChart.setTouchEnabled(false)
+
+            // ✅ Animation
+            barChart.animateY(800)
+
+            // ✅ Spacing (very important)
+            barChart.setFitBars(true)
+            barChart.setExtraOffsets(8f, 16f, 8f, 8f)
 
             barChart.invalidate()
         }
 
         // ===============================
-        // 🔥 HEATMAP (FIXED)
+        // 🔥 HEATMAP
         // ===============================
         val heatmapRv = view.findViewById<RecyclerView>(R.id.rvHeatmap)
         val heatmapAdapter = HeatmapAdapter()
@@ -114,7 +175,7 @@ class InsightsFragment : Fragment(R.layout.fragment_insights) {
         heatmapRv.adapter = heatmapAdapter
 
         viewModel.dailyExpenses.observe(viewLifecycleOwner) { data ->
-            val heatmapData = viewModel.getMonthlyHeatmapData(data)  // ✅ IMPORTANT
+            val heatmapData = viewModel.getMonthlyHeatmapData(data)
             heatmapAdapter.submitList(heatmapData)
         }
     }

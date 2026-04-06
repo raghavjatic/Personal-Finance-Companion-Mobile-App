@@ -3,6 +3,7 @@ package com.example.zorvyn.data.repository
 import androidx.lifecycle.LiveData
 import com.example.zorvyn.data.dao.TransactionDao
 import com.example.zorvyn.data.entity.TransactionEntity
+import com.example.zorvyn.ui.insights.model.DailyExpense
 
 /**
  * Repository layer for handling transaction data.
@@ -48,4 +49,6 @@ class TransactionRepository(private val transactionDao: TransactionDao) {
     fun getCategoryTotals() = transactionDao.getCategoryTotals()
 
     fun getDailyExpenses() = transactionDao.getDailyExpenses()
+
+    fun getWeeklyDailyExpenses() = transactionDao.getLast7DaysExpenses()
 }

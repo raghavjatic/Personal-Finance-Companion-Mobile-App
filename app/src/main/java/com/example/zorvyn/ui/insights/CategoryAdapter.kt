@@ -44,5 +44,11 @@ class CategoryAdapter : RecyclerView.Adapter<CategoryAdapter.ViewHolder>() {
         else ((item.total / totalAmount) * 100).toInt()
 
         holder.progressBar.progress = percent
+
+        holder.progressBar.progressTintList =
+            android.content.res.ColorStateList.valueOf(android.graphics.Color.BLACK)
+
+        holder.progressBar.progressBackgroundTintList =
+            android.content.res.ColorStateList.valueOf(android.graphics.Color.parseColor("#E0E0E0"))
     }
 }

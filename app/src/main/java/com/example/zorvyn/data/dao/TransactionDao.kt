@@ -80,5 +80,17 @@ GROUP BY date
 ORDER BY date ASC
 """)
     fun getDailyExpenses(): LiveData<List<DailyExpense>>
+
+    @Query("""
+SELECT 
+    strftime('%Y-%m-%d', date/1000, 'unixepoch') as date,
+    SUM(amount) as total
+FROM transactions
+WHERE type = 'expense'
+AND date >= strftime('%s','now','-7 days')*1000
+GROUP BY date
+ORDER BY date ASC
+""")
+    fun getLast7DaysExpenses(): LiveData<List<DailyExpense>>
 }
 
