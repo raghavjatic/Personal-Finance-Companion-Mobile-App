@@ -30,7 +30,7 @@ interface TransactionDao {
     @Query("""
 SELECT SUM(amount) FROM transactions
 WHERE type = 'expense'
-AND strftime('%m-%Y', date/1000, 'unixepoch') = strftime('%m-%Y', 'now')
+AND date >= strftime('%s','now','localtime','start of month')*1000
 """)
     fun getMonthlyExpense(): LiveData<Double?>
 
