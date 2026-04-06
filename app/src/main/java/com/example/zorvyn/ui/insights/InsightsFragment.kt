@@ -22,10 +22,17 @@ class InsightsFragment : Fragment(R.layout.fragment_insights) {
 
     private lateinit var viewModel: InsightsViewModel
 
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // ✅ ViewModel setup (CORRECT WAY)
+        val tvMonthLabel = view.findViewById<TextView>(R.id.tvMonthLabel)
+
+        val format = java.text.SimpleDateFormat("MMMM yyyy", java.util.Locale.getDefault())
+        val currentMonth = format.format(java.util.Date())
+
+        tvMonthLabel.text = currentMonth
+
         val repository = TransactionRepository(
             AppDatabase.getDatabase(requireContext()).transactionDao()
         )
@@ -33,7 +40,7 @@ class InsightsFragment : Fragment(R.layout.fragment_insights) {
         viewModel = ViewModelProvider(this, factory)[InsightsViewModel::class.java]
 
         // ===============================
-        // 📊 CATEGORY LIST (RecyclerView)
+        // 📊 CATEGORY LIST
         // ===============================
         val recyclerView = view.findViewById<RecyclerView>(R.id.rvCategories)
         val categoryAdapter = CategoryAdapter()
@@ -46,34 +53,28 @@ class InsightsFragment : Fragment(R.layout.fragment_insights) {
         }
 
         // ===============================
-        // 🔹 TEXT + CHART VIEWS
+        // 🔹 TEXT + CHART
         // ===============================
         val tvMonthly = view.findViewById<TextView>(R.id.tvMonthlyTotal)
         val tvWeekly = view.findViewById<TextView>(R.id.tvWeeklyComparison)
         val tvTop = view.findViewById<TextView>(R.id.tvTopCategory)
         val barChart = view.findViewById<BarChart>(R.id.barChart)
 
-        // ✅ Monthly
-        viewModel.monthlyExpense.observe(viewLifecycleOwner) { amount ->
-            tvMonthly.text = "₹${amount ?: 0}"
+        viewModel.monthlyExpense.observe(viewLifecycleOwner) {
+            tvMonthly.text = "₹${it ?: 0}"
         }
 
-        // ✅ Top Category
-        viewModel.topCategory.observe(viewLifecycleOwner) { category ->
-            tvTop.text = category?.let {
-                "${it.category} — ₹${it.total}"
+        viewModel.topCategory.observe(viewLifecycleOwner) {
+            tvTop.text = it?.let { c ->
+                "${c.category} — ₹${c.total}"
             } ?: "No data"
         }
 
-        // ===============================
-        // 📊 WEEKLY (TEXT + BAR CHART)
-        // ===============================
         viewModel.weeklyData.observe(viewLifecycleOwner) { data ->
 
             val thisWeek = data.thisWeek ?: 0.0
             val lastWeek = data.lastWeek ?: 0.0
 
-            // 🔹 TEXT
             if (lastWeek == 0.0) {
                 tvWeekly.text = "No previous data"
             } else {
@@ -84,16 +85,13 @@ class InsightsFragment : Fragment(R.layout.fragment_insights) {
                     "$arrow ${"%.1f".format(kotlin.math.abs(percent))}% vs last week"
             }
 
-            // 🔹 CHART
             val entries = listOf(
                 BarEntry(0f, lastWeek.toFloat()),
                 BarEntry(1f, thisWeek.toFloat())
             )
 
             val dataSet = BarDataSet(entries, "Weekly Spending")
-            val barData = BarData(dataSet)
-
-            barChart.data = barData
+            barChart.data = BarData(dataSet)
 
             barChart.xAxis.valueFormatter =
                 IndexAxisValueFormatter(listOf("Last", "This"))
@@ -107,7 +105,7 @@ class InsightsFragment : Fragment(R.layout.fragment_insights) {
         }
 
         // ===============================
-        // 🔥 HEATMAP
+        // 🔥 HEATMAP (FIXED)
         // ===============================
         val heatmapRv = view.findViewById<RecyclerView>(R.id.rvHeatmap)
         val heatmapAdapter = HeatmapAdapter()
@@ -115,8 +113,9 @@ class InsightsFragment : Fragment(R.layout.fragment_insights) {
         heatmapRv.layoutManager = GridLayoutManager(requireContext(), 7)
         heatmapRv.adapter = heatmapAdapter
 
-        viewModel.dailyExpenses.observe(viewLifecycleOwner) {
-            heatmapAdapter.submitList(it)
+        viewModel.dailyExpenses.observe(viewLifecycleOwner) { data ->
+            val heatmapData = viewModel.getMonthlyHeatmapData(data)  // ✅ IMPORTANT
+            heatmapAdapter.submitList(heatmapData)
         }
     }
 }

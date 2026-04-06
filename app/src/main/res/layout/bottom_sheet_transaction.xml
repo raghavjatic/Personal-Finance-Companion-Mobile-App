@@ -2,7 +2,8 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:fillViewport="true">
+    android:fillViewport="true"
+    android:background="@color/surface">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -17,47 +18,55 @@
             android:text="Add Transaction"
             android:textSize="20sp"
             android:textStyle="bold"
-            android:layout_marginBottom="16dp"/>
+            android:textColor="@color/text_primary"
+            android:layout_marginBottom="20dp"/>
 
-        <!-- Amount Card -->
-        <LinearLayout
+        <!-- Amount -->
+        <EditText
+            android:id="@+id/etAmount"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@android:color/white"
-            android:padding="16dp"
-            android:layout_marginBottom="12dp"
-            android:elevation="2dp">
+            android:hint="₹ Amount"
+            android:textSize="20sp"
+            android:textColor="@color/text_primary"
+            android:background="@drawable/bg_input"
+            android:padding="14dp"
+            android:layout_marginBottom="16dp"
+            android:inputType="numberDecimal"/>
 
-            <EditText
-                android:id="@+id/etAmount"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="₹ Amount"
-                android:textSize="18sp"
-                android:inputType="numberDecimal"/>
-        </LinearLayout>
-
-        <!-- Type Toggle -->
+        <!-- Type Toggle (MODERN) -->
         <RadioGroup
             android:id="@+id/rgType"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:layout_marginBottom="12dp">
+            android:background="@drawable/bg_toggle"
+            android:padding="4dp"
+            android:layout_marginBottom="16dp">
 
             <RadioButton
                 android:id="@+id/rbExpense"
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
-                android:text="Expense"/>
+                android:text="Expense"
+                android:button="@null"
+                android:gravity="center"
+                android:padding="10dp"
+                android:textColor="@color/toggle_text_color"
+                android:background="@drawable/bg_toggle_item"/>
 
             <RadioButton
                 android:id="@+id/rbIncome"
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
-                android:text="Income"/>
+                android:text="Income"
+                android:button="@null"
+                android:gravity="center"
+                android:padding="10dp"
+                android:textColor="@color/toggle_text_color"
+                android:background="@drawable/bg_toggle_item"/>
         </RadioGroup>
 
         <!-- Category -->
@@ -65,7 +74,9 @@
             android:id="@+id/spCategory"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"/>
+            android:background="@drawable/bg_input_with_arrow"
+            android:padding="12dp"
+            android:layout_marginBottom="12dp"/>
 
         <!-- Custom Category -->
         <EditText
@@ -73,19 +84,21 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Custom category"
+            android:background="@drawable/bg_input"
+            android:padding="14dp"
             android:visibility="gone"
-            android:layout_marginBottom="12dp"/>
+            android:layout_marginBottom="16dp"/>
 
         <!-- Date -->
         <TextView
             android:id="@+id/tvDate"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Select Date"
-            android:padding="12dp"
-            android:background="@android:color/darker_gray"
-            android:textColor="@android:color/white"
-            android:layout_marginBottom="12dp"/>
+            android:text="📅 Select Date"
+            android:padding="14dp"
+            android:textColor="@color/text_primary"
+            android:background="@drawable/bg_input"
+            android:layout_marginBottom="16dp"/>
 
         <!-- Notes -->
         <EditText
@@ -93,14 +106,20 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Notes (optional)"
-            android:layout_marginBottom="16dp"/>
+            android:background="@drawable/bg_input"
+            android:padding="14dp"
+            android:layout_marginBottom="20dp"/>
 
-        <!-- Save -->
+        <!-- Save Button -->
         <Button
             android:id="@+id/btnSave"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Save Transaction"/>
+            android:text="Save Transaction"
+            android:textAllCaps="false"
+            android:textColor="@color/on_primary"
+            android:backgroundTint="@color/primary"
+            android:padding="14dp"/>
 
         <!-- Delete -->
         <Button
@@ -108,9 +127,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Delete Transaction"
-            android:textColor="@android:color/white"
-            android:backgroundTint="@android:color/holo_red_dark"
-            android:layout_marginTop="8dp"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            android:backgroundTint="@color/expenseRed"
+            android:layout_marginTop="10dp"
             android:visibility="gone"/>
 
     </LinearLayout>

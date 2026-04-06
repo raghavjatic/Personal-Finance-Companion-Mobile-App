@@ -11,10 +11,28 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Zorvyn"
-        android:textSize="32sp"
+        android:textSize="62sp"
+        android:fontFamily="@font/title_font"
         android:textStyle="bold"
         android:textColor="#FFFFFF"
+
         app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/apptagline"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+
+        app:layout_constraintVertical_chainStyle="packed"/>
+
+    <TextView
+        android:id="@+id/apptagline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Expense tracking app"
+        android:textSize="16sp"
+        android:fontFamily="@font/tagline_font"
+        android:textColor="#FFFFFF"
+
+        app:layout_constraintTop_toBottomOf="@id/appName"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"/>

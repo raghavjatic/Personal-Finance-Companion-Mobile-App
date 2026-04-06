@@ -1,9 +1,35 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
-    <!-- Base application theme. -->
+
     <style name="Base.Theme.Zorvyn" parent="Theme.Material3.DayNight.NoActionBar">
-        <!-- Customize your light theme here. -->
-        <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+
+        <!-- Background -->
+        <item name="android:windowBackground">@color/background</item>
+
+        <!-- PRIMARY -->
+        <item name="colorPrimary">@color/primary</item>
+        <item name="colorOnPrimary">@color/on_primary</item>
+
+        <!-- PRIMARY CONTAINER -->
+        <item name="colorPrimaryContainer">@color/primary_container</item>
+        <item name="colorOnPrimaryContainer">@color/on_primary_container</item>
+
+        <!-- SECONDARY (keep subtle) -->
+        <item name="colorSecondary">@color/primary_container</item>
+        <item name="colorOnSecondary">@color/text_primary</item>
+
+        <!-- SURFACE -->
+        <item name="colorSurface">@color/surface</item>
+        <item name="colorOnSurface">@color/text_primary</item>
+
+
+
+        <!-- RIPPLE -->
+        <item name="colorControlHighlight">@color/ripple</item>
+
     </style>
 
+
+
     <style name="Theme.Zorvyn" parent="Base.Theme.Zorvyn" />
+
 </resources>

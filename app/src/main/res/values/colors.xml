@@ -1,15 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
+    <!-- Core -->
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
-    <color name="primaryBlue">#1E3C72</color>
-    <color name="secondaryBlue">#2A5298</color>
 
-    <color name="backgroundLight">#F8F9FB</color>
+    <!-- Brand (Premium Blue) -->
+    <color name="primary">#1E3C72</color>
+    <color name="on_primary">#FFFFFF</color>
 
+    <!-- Secondary / Containers -->
+    <color name="primary_container">#E3E9F6</color>
+    <color name="on_primary_container">#111111</color>
+
+    <!-- Background & Surface -->
+    <color name="background">#EEF1F6</color>
+    <color name="surface">#FFFFFF</color>
+
+    <!-- Text -->
+    <color name="text_primary">#111111</color>
+    <color name="text_secondary">#666666</color>
+
+    <!-- Semantic -->
     <color name="incomeGreen">#4CAF50</color>
     <color name="expenseRed">#F44336</color>
 
-    <color name="textPrimary">#000000</color>
-    <color name="textSecondary">#777777</color>
+    <!-- Ripple -->
+    <color name="ripple">#1A1E3C72</color> <!-- subtle blue ripple -->
+
 </resources>

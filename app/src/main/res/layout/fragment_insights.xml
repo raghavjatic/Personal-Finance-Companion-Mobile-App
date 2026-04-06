@@ -21,6 +21,7 @@
             android:layout_height="wrap_content"
             android:text="Zorvyn"
             android:textSize="35sp"
+            android:fontFamily="@font/title_font"
             android:textStyle="bold"/>
     </LinearLayout>
 
@@ -44,13 +45,11 @@
 
                 <!-- THIS MONTH -->
                 <com.google.android.material.card.MaterialCardView
+                    style="@style/AppCard"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:layout_marginEnd="6dp"
-                    app:cardCornerRadius="16dp"
-                    app:cardElevation="4dp"
-                    app:cardBackgroundColor="#FFFFFF">
+                    android:layout_marginEnd="6dp">
 
                     <LinearLayout
                         android:orientation="vertical"
@@ -79,13 +78,11 @@
 
                 <!-- WEEKLY -->
                 <com.google.android.material.card.MaterialCardView
+                    style="@style/AppCard"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:layout_marginStart="6dp"
-                    app:cardCornerRadius="16dp"
-                    app:cardElevation="4dp"
-                    app:cardBackgroundColor="#FFFFFF">
+                    android:layout_marginStart="6dp">
 
                     <LinearLayout
                         android:orientation="vertical"
@@ -114,11 +111,9 @@
 
             <!-- TOP CATEGORY -->
             <com.google.android.material.card.MaterialCardView
+                style="@style/AppCard"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:cardCornerRadius="16dp"
-                app:cardElevation="4dp"
-                app:cardBackgroundColor="#FFFFFF">
+                android:layout_height="wrap_content">
 
                 <LinearLayout
                     android:orientation="vertical"
@@ -209,16 +204,8 @@
                 android:textStyle="bold"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="16sp"/>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Last few days spending intensity"
-                android:textSize="12sp"
-                android:textColor="#666666"
+                android:textSize="16sp"
                 android:layout_marginBottom="6dp"/>
-
 
             <!-- 🔥 HEATMAP -->
 
@@ -226,7 +213,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:layout_marginTop="8dp">
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="6dp">
 
                 <TextView
                     android:text="Less"
@@ -247,6 +235,8 @@
                     android:layout_height="wrap_content"/>
             </LinearLayout>
 
+
+
             <com.google.android.material.card.MaterialCardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -258,12 +248,98 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:orientation="vertical"
                     android:padding="12dp">
 
+                    <TextView
+                        android:id="@+id/tvMonthLabel"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="March 2026"
+                        android:textStyle="bold"
+                        android:textSize="14sp"
+                        android:textColor="#333333"
+                        android:layout_marginBottom="6dp"/>
+
+                    <!-- 🗓 DAY LABELS -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_marginBottom="6dp"
+                        android:paddingStart="5dp"
+                        android:paddingEnd="5dp">
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="M"
+                            android:textSize="10sp"
+                            android:textColor="#666666"
+                            android:gravity="center"/>
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="T"
+                            android:textSize="10sp"
+                            android:textColor="#666666"
+                            android:gravity="center"/>
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="W"
+                            android:textSize="10sp"
+                            android:textColor="#666666"
+                            android:gravity="center"/>
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="T"
+                            android:textSize="10sp"
+                            android:textColor="#666666"
+                            android:gravity="center"/>
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="F"
+                            android:textSize="10sp"
+                            android:textColor="#666666"
+                            android:gravity="center"/>
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="S"
+                            android:textSize="10sp"
+                            android:textColor="#666666"
+                            android:gravity="center"/>
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="S"
+                            android:textSize="10sp"
+                            android:textColor="#666666"
+                            android:gravity="center"/>
+                    </LinearLayout>
+
+                    <!-- 🔥 HEATMAP GRID -->
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/rvHeatmap"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"/>
+
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
 

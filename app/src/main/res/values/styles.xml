@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="AppCard">
+        <item name="cardBackgroundColor">@color/surface</item>
+        <item name="cardCornerRadius">14dp</item>
+        <item name="cardElevation">0dp</item>
+        <item name="strokeWidth">0dp</item>
+        <!-- Add these properly -->
+        <item name="android:clickable">true</item>
+        <item name="android:focusable">true</item>
+
+        <!-- Ripple effect -->
+        <item name="rippleColor">@color/ripple</item>
+    </style>
+
+    <style name="BottomNavIndicator">
+        <item name="android:color">@color/primary</item>
+    </style>
+
+
+
+</resources>

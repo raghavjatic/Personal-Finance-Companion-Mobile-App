@@ -25,6 +25,7 @@
             android:layout_weight="1"
             android:text="Zorvyn"
             android:textSize="35sp"
+            android:fontFamily="@font/title_font"
             android:textStyle="bold" />
 
         <!-- Filter Button -->
@@ -32,7 +33,7 @@
             android:id="@+id/btnFilter"
             android:layout_width="40dp"
             android:layout_height="40dp"
-            android:src="@android:drawable/ic_menu_sort_by_size"
+            android:src="@drawable/ic_funnel"
             android:background="?attr/selectableItemBackgroundBorderless"/>
 
         <!-- Sort Button -->
@@ -40,7 +41,7 @@
             android:id="@+id/btnSort"
             android:layout_width="40dp"
             android:layout_height="40dp"
-            android:src="@android:drawable/ic_menu_sort_alphabetically"
+            android:src="@drawable/ic_sort"
             android:background="?attr/selectableItemBackgroundBorderless"/>
     </LinearLayout>
 
@@ -68,8 +69,10 @@
             android:id="@+id/recyclerViewTransactions"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:padding="12dp"
-            android:paddingBottom="80dp" />
+            android:paddingHorizontal="12dp"
+            android:paddingTop="8dp"
+            android:paddingBottom="80dp"
+            android:clipToPadding="false"/>
 
         <!-- Empty State -->
         <LinearLayout
