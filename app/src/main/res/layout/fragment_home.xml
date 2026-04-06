@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:fillViewport="true"
     android:fitsSystemWindows="true">
 
     <LinearLayout
@@ -136,17 +137,28 @@
         <com.github.mikephil.charting.charts.PieChart
             android:id="@+id/pieChart"
             android:layout_width="match_parent"
-            android:layout_height="300dp"
-            android:layout_marginBottom="16dp"/>
+            android:layout_height="250dp"
+            android:layout_marginBottom="16dp"
+            />
 
-        <TextView
-            android:id="@+id/tvToggleGraphs"
+        <LinearLayout
+            android:id="@+id/legendContainer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginBottom="12dp"/>
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/chipToggleChart"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="See Graphs →"
-            android:textStyle="bold"
-            android:textSize="14sp"
-            android:textColor="#333333"
+            android:text="Show Bar Chart"
+            android:textColor="@android:color/white"
+            app:chipBackgroundColor="@color/primaryDark"
+            app:chipCornerRadius="8dp"
+            app:chipIcon="@android:drawable/ic_menu_sort_by_size"
+            app:chipIconTint="@android:color/white"
+            app:iconStartPadding="8dp"
             android:layout_marginBottom="12dp"/>
 
         <!-- Graph Container -->
@@ -214,8 +226,37 @@
 
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
+
+
         </LinearLayout>
 
+        <!-- Recent Transactions Title -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Recent Transactions"
+            android:textStyle="bold"
+            android:textSize="16sp"
+            android:layout_marginTop="20dp"/>
+
+        <!-- RecyclerView -->
+        <LinearLayout
+            android:id="@+id/recentContainer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginTop="10dp"/>
+
+        <!-- See All -->
+        <TextView
+            android:id="@+id/tvSeeAll"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="See all transactions →"
+            android:textColor="#000000"
+            android:textAlignment="center"
+            android:gravity="center"
+            android:layout_marginTop="12dp"/>
     </LinearLayout>
 
 </ScrollView>
